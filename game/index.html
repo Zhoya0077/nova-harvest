@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <title>NOVA HARVEST — catch the falling sky</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="shell">
+    <div class="frame">
+      <canvas id="stage" width="1280" height="800"
+        aria-label="NOVA HARVEST: pilot the skimmer, catch star-seeds, dodge void shards"></canvas>
+      <div class="scanlines" aria-hidden="true"></div>
+      <div class="edges" aria-hidden="true"></div>
+    </div>
+    <p class="hint">
+      Catch star-seeds &middot; dodge void shards &middot;
+      <kbd>P</kbd> pause &middot; <kbd>M</kbd> mute
+    </p>
+  </main>
+  <noscript>NOVA HARVEST is drawn entirely in JavaScript; please enable it.</noscript>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

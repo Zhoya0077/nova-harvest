@@ -1,0 +1,148 @@
+/* NOVA HARVEST — page chrome only. Every pixel inside the canvas is drawn by the game. */
+
+:root {
+  --night: #05030f;
+  --abyss: #0a0722;
+  --neon: #5cf2da;
+  --hud: #dcf4ff;
+  --dim: rgba(200, 226, 255, 0.52);
+  --gold: #ffcf5c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  padding: 18px;
+  background:
+    radial-gradient(circle at 22% 8%, rgba(96, 46, 178, 0.30), transparent 55%),
+    radial-gradient(circle at 82% 92%, rgba(18, 118, 172, 0.26), transparent 58%),
+    radial-gradient(circle at 50% 50%, #0a0722 0%, #05030f 68%);
+  color: var(--hud);
+  font-family: "Trebuchet MS", "Segoe UI", Verdana, sans-serif;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* The stage keeps the canvas' 1280x800 ratio and never overflows the viewport. */
+.shell {
+  width: min(1280px, 100%, calc((100vh - 96px) * 1.6));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.frame {
+  position: relative;
+  border-radius: 14px;
+  padding: 1px;
+  background: linear-gradient(150deg, rgba(92, 242, 218, 0.55), rgba(154, 99, 255, 0.35) 45%, rgba(92, 242, 218, 0.18));
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 26px 70px -18px rgba(92, 242, 218, 0.28),
+    0 8px 30px rgba(0, 0, 0, 0.7);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  border-radius: 13px;
+  background: var(--night);
+  cursor: crosshair;
+  touch-action: none;
+  outline: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+canvas:focus-visible {
+  box-shadow: 0 0 0 2px rgba(92, 242, 218, 0.75);
+}
+
+/* A whisper of CRT: horizontal lines and a soft vignette, both pointer-transparent. */
+.scanlines,
+.edges {
+  position: absolute;
+  inset: 1px;
+  border-radius: 13px;
+  pointer-events: none;
+}
+
+.scanlines {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.028) 0px,
+    rgba(255, 255, 255, 0.028) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: screen;
+  opacity: 0.55;
+}
+
+.edges {
+  box-shadow: inset 0 0 120px 24px rgba(3, 2, 10, 0.82);
+}
+
+.hint {
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  letter-spacing: 0.09em;
+  color: var(--dim);
+}
+
+.hint kbd {
+  display: inline-block;
+  min-width: 1.55em;
+  padding: 1px 5px;
+  border: 1px solid rgba(92, 242, 218, 0.4);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: rgba(92, 242, 218, 0.08);
+  color: var(--neon);
+  font-family: "SF Mono", "Consolas", monospace;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+noscript {
+  display: block;
+  max-width: 40ch;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--gold);
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 8px;
+  }
+
+  .shell {
+    width: 100%;
+  }
+
+  .hint {
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scanlines {
+    opacity: 0.25;
+  }
+}
